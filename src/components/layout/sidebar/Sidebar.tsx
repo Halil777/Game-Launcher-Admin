@@ -1,19 +1,21 @@
 import { useState, FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BsArrowLeftCircle } from "react-icons/bs";
-// import { MdOutlinePieChart } from "react-icons/md";
-import { HiOutlineHome } from "react-icons/hi";
-// import { CiSettings } from "react-icons/ci";
-// import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import HamburgerButton from "../../common/hamburgerMenu/HamburgerButton";
-import { GoHistory } from "react-icons/go";
-import { IoCalendarNumberOutline } from "react-icons/io5";
+import {
+  HiOutlineServer,
+  HiOutlineMicrophone,
+  HiOutlineCollection,
+  HiOutlineNewspaper,
+} from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import Profile from "../../profile/Profile";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { CiDollar } from "react-icons/ci";
 
 interface MenuItem {
   title: string;
-  path?: string | any;
+  path?: string;
   src?: JSX.Element;
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
@@ -29,37 +31,12 @@ const Sidebar: FC = () => {
   const { t } = useTranslation();
 
   const Menus: MenuItem[] = [
-    // {
-    //   title: "sidebar.dashboard",
-    //   path: "/dashboard",
-    //   src: <MdOutlinePieChart />,
-    // },
-    { title: "sidebar.home", path: "/", src: <HiOutlineHome /> },
-    {
-      title: "Events",
-      path: "/events",
-      src: <IoCalendarNumberOutline />,
-    },
-    {
-      title: "History",
-      path: "/history",
-      src: <GoHistory />,
-    },
-
-    // {
-    //   title: "sidebar.settings",
-    //   startIcon: <CiSettings />,
-    //   endIcon: settingsOpen ? <FaAngleUp /> : <FaAngleDown />,
-    //   dropdown: [
-    //     { title: "General", path: "/settings/general", icon: <CiSettings /> },
-    //     { title: "Security", path: "/settings/security", icon: <CiSettings /> },
-    //     {
-    //       title: "Notifications",
-    //       path: "/settings/notifications",
-    //       icon: <CiSettings />,
-    //     },
-    //   ],
-    // },
+    { title: "Servers", path: "/servers", src: <HiOutlineServer /> },
+    { title: "TeamSpeak", path: "/team-speak", src: <HiOutlineMicrophone /> },
+    { title: "Category", path: "/category", src: <HiOutlineCollection /> },
+    { title: "News", path: "/news", src: <HiOutlineNewspaper /> },
+    { title: "Games", path: "/games", src: <IoGameControllerOutline /> },
+    { title: "Pricing", path: "/pricing", src: <CiDollar /> }, // New Pricing page entry
   ];
 
   const handleSettingsClick = () => {
@@ -76,7 +53,7 @@ const Sidebar: FC = () => {
         <BsArrowLeftCircle
           className={`${
             !open && "rotate-180"
-          } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer bottom-32 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
+          } absolute text-3xl bg-white fill-slate-800 rounded-full cursor-pointer bottom-32 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
           onClick={() => setOpen(!open)}
         />
         <Link to="/">
@@ -114,45 +91,52 @@ const Sidebar: FC = () => {
                   </span>
                 </li>
               ) : (
-                <Link to={menu.path} key={index}>
-                  <li
-                    className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 mt-2 ${
-                      location.pathname === menu.path &&
-                      "bg-gray-200 dark:bg-gray-700"
-                    }`}
-                  >
-                    <span className="text-2xl">{menu.src}</span>
-                    <span
-                      className={`${
-                        !open && "hidden"
-                      } origin-left duration-300 hover:block`}
+                menu.path && ( // Check if menu.path is defined
+                  <Link to={menu.path} key={index}>
+                    <li
+                      className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 mt-2 ${
+                        location.pathname === menu.path &&
+                        "bg-gray-200 dark:bg-gray-700"
+                      }`}
                     >
-                      {t(menu.title)}
-                    </span>
-                  </li>
-                </Link>
+                      <span className="text-2xl">{menu.src}</span>
+                      <span
+                        className={`${
+                          !open && "hidden"
+                        } origin-left duration-300 hover:block`}
+                      >
+                        {t(menu.title)}
+                      </span>
+                    </li>
+                  </Link>
+                )
               )}
 
               {menu.dropdown && settingsOpen && (
                 <ul className="ml-2">
-                  {menu.dropdown.map((dropdownItem, dropdownIndex) => (
-                    <Link to={dropdownItem.path} key={dropdownIndex}>
-                      <li
-                        className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 mt-2`}
-                      >
-                        {dropdownItem.icon && (
-                          <span className="text-2xl">{dropdownItem.icon}</span>
-                        )}
-                        <span
-                          className={`${
-                            !open && "hidden"
-                          } origin-left duration-300 hover:block`}
-                        >
-                          {dropdownItem.title}
-                        </span>
-                      </li>
-                    </Link>
-                  ))}
+                  {menu.dropdown.map(
+                    (dropdownItem, dropdownIndex) =>
+                      dropdownItem.path && ( // Check if dropdownItem.path is defined
+                        <Link to={dropdownItem.path} key={dropdownIndex}>
+                          <li
+                            className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 mt-2`}
+                          >
+                            {dropdownItem.icon && (
+                              <span className="text-2xl">
+                                {dropdownItem.icon}
+                              </span>
+                            )}
+                            <span
+                              className={`${
+                                !open && "hidden"
+                              } origin-left duration-300 hover:block`}
+                            >
+                              {dropdownItem.title}
+                            </span>
+                          </li>
+                        </Link>
+                      )
+                  )}
                 </ul>
               )}
             </div>
@@ -170,24 +154,27 @@ const Sidebar: FC = () => {
         <div
           className={`${
             mobileMenu ? "flex" : "hidden"
-          } absolute z-50 flex-col items-start pl-10 self-end py-8 mt-16 space-y-6 font-bold sm:w-auto left-6 right-6 dark:text-white  bg-gray-50 dark:bg-slate-800 drop-shadow md rounded-xl`}
+          } absolute z-50 flex-col items-start pl-10 self-end py-8 mt-16 space-y-6 font-bold sm:w-auto left-6 right-6 dark:text-white bg-gray-50 dark:bg-slate-800 drop-shadow md rounded-xl`}
         >
-          {Menus.map((menu, index) => (
-            <Link
-              to={menu.path}
-              key={index}
-              onClick={() => setMobileMenu(false)}
-            >
-              <span
-                className={`${
-                  location.pathname === menu.path &&
-                  "bg-gray-200 dark:bg-gray-700"
-                } p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700`}
-              >
-                {t(menu.title)}
-              </span>
-            </Link>
-          ))}
+          {Menus.map(
+            (menu, index) =>
+              menu.path && ( // Check if menu.path is defined
+                <Link
+                  to={menu.path}
+                  key={index}
+                  onClick={() => setMobileMenu(false)}
+                >
+                  <span
+                    className={`${
+                      location.pathname === menu.path &&
+                      "bg-gray-200 dark:bg-gray-700"
+                    } p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700`}
+                  >
+                    {t(menu.title)}
+                  </span>
+                </Link>
+              )
+          )}
           <Profile />
         </div>
       </div>
