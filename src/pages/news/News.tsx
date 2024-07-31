@@ -1,7 +1,7 @@
 import { FC } from "react";
 import useSWR from "swr";
 import axios from "axios";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -76,12 +76,7 @@ const News: FC = () => {
                 </td>
                 <td className="py-2 px-4">{news.desc_ru}</td>
                 <td className="py-2 px-4 text-center">
-                  <button
-                    onClick={() => navigate(`/edit-news/${news.id}`)}
-                    className="text-blue-500 hover:text-blue-700 mr-2"
-                  >
-                    <FaEdit />
-                  </button>
+                  {/* Removed Edit button */}
                   <button
                     onClick={() => {
                       if (

@@ -5,7 +5,6 @@ import HamburgerButton from "../../common/hamburgerMenu/HamburgerButton";
 import {
   HiOutlineServer,
   HiOutlineMicrophone,
-  HiOutlineCollection,
   HiOutlineNewspaper,
 } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
@@ -33,7 +32,6 @@ const Sidebar: FC = () => {
   const Menus: MenuItem[] = [
     { title: "Servers", path: "/servers", src: <HiOutlineServer /> },
     { title: "TeamSpeak", path: "/team-speak", src: <HiOutlineMicrophone /> },
-    { title: "Category", path: "/category", src: <HiOutlineCollection /> },
     { title: "News", path: "/news", src: <HiOutlineNewspaper /> },
     { title: "Games", path: "/games", src: <IoGameControllerOutline /> },
     { title: "Pricing", path: "/pricing", src: <CiDollar /> }, // New Pricing page entry

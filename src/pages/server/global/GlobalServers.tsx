@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 interface Server {
   id: number;
@@ -26,7 +26,7 @@ const GlobalServers: FC<GlobalServersProps> = ({ servers, onDelete }) => {
             <th className="py-2 px-4 text-left">Host</th>
             <th className="py-2 px-4 text-left">Display Port</th>
             <th className="py-2 px-4 text-left">Speed</th>
-            <th className="py-2 px-4 text-center">Actions</th>
+            <th className="py-2 px-4 text-center">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -38,12 +38,6 @@ const GlobalServers: FC<GlobalServersProps> = ({ servers, onDelete }) => {
               <td className="py-2 px-4">{server.display_port}</td>
               <td className="py-2 px-4">{server.speed}</td>
               <td className="py-2 px-4 text-center">
-                <button
-                  className="text-blue-500 hover:text-blue-700 mr-2"
-                  title="Edit"
-                >
-                  <FaEdit />
-                </button>
                 <button
                   className="text-red-500 hover:text-red-700"
                   title="Delete"

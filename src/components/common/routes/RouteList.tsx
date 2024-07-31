@@ -12,9 +12,6 @@ const AddLocalServer = lazy(
 const TeamSpeak = lazy(() => import("../../../pages/teamspeak/TeamSpeak"));
 const Pricing = lazy(() => import("../../../pages/pricing/Pricing"));
 const AddPlan = lazy(() => import("../../../pages/pricing/AddPlan"));
-const Category = lazy(() => import("../../../pages/category/Category"));
-const AddCategory = lazy(() => import("../../../pages/category/AddCategory"));
-const EditCategory = lazy(() => import("../../../pages/category/EditCategory"));
 const Login = lazy(() => import("../../../pages/login/Login"));
 const News = lazy(() => import("../../../pages/news/News"));
 const AddNews = lazy(() => import("../../../pages/news/AddNews"));
@@ -67,18 +64,6 @@ const RouteList = () => {
                 element={<ProtectedRoute element={<TeamSpeak />} />}
               />
 
-              <Route
-                path="/category"
-                element={<ProtectedRoute element={<Category />} />}
-              />
-              <Route
-                path="/add-category"
-                element={<ProtectedRoute element={<AddCategory />} />}
-              />
-              <Route
-                path="/edit-category/:id"
-                element={<ProtectedRoute element={<EditCategory />} />}
-              />
               <Route
                 path="/news"
                 element={<ProtectedRoute element={<News />} />}
